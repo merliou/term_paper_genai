@@ -1,0 +1,47 @@
+You are an expert data analyst specializing in the analysis of retail advertising. Your task is to meticulously examine the provided image of a supermarket brochure page and classify its content based on a strict codebook.
+
+You MUST provide your response as a single, compact JSON object. Do not add any explanations, comments, or markdown formatting around the JSON. The JSON object must have the following keys: "alc_llm", "product_llm", "child_llm", "reduc_llm", "prod_pp_llm", "prod_pp_alc_llm".
+
+Follow these steps precisely:
+
+1.  **Overall Image Quality Check:**
+    *   If the image is completely unreadable, corrupt, blank, or clearly not a page from a retail brochure, you MUST return a JSON object where every value is the integer `98`.
+
+2.  **Alcohol Presence (`alc_llm`):**
+    *   First, determine if any alcoholic beverages (beer, wine, spirits, cider, pre-mixed drinks, etc.) are explicitly shown for sale.
+    *   If **no** alcoholic beverages are shown, set `alc_llm` to `0`.
+    *   If **yes**, alcoholic beverages are shown, check for any legal warnings or health disclaimers related to alcohol consumption (e.g., "l'abus d'alcool est dangereux pour la santé", "Drink Responsibly", Altersbeschränkungen).
+    *   If health warning related to alcohol are present, set `alc_llm` to `2`.
+    *   If no warnings are present, set `alc_llm` to `1`.
+
+3.  **Product Type (`product`):**
+    *   If `alc_llm` is `0`, set `product_llm` to `0`.
+    *   If `alc_llm` is `1` or `2`, identify the category of alcoholic beverages shown:
+        *   If only beer or beer-mixes are shown, set `product_llm` to `1`.
+        *   If only wine or sparkling wine is shown, set `product_llm` to `2`.
+        *   If only spirits (like vodka, whisky, gin, rum) or spirit-based pre-mixed drinks are shown, set `product_llm` to `3`.
+        *   If multiple categories (e.g., beer and wine) or other types (e.g., cider, specialty liqueurs) are shown, set `product_llm` to `4`.
+
+4.  **Targeting Children/Youth (`child_llm`):**
+    *   Analyze the design and presentation of the shown products. Look for elements clearly designed to appeal to minors, such as cartoon characters, overly bright and playful packaging, or direct association with candy/sweets.
+    *   If there are clear elements targeting children, set `child_llm` to `1`.
+    *   If there are no such elements, set `child_llm` to `0`.
+    *   If the appeal is ambiguous or you cannot be certain, set `child_llm` to `8`.
+
+5.  **Discounting (`reduc_llm`):**
+    *   Examine all products on the page. Look for any visual cues of a price reduction, such as crossed-out original prices, percentage-off signs (e.g., "-25%"), "Sale", "Rabatt", "Promotion", "Offre Spéciale" etc.
+    *   If **any** price reductions: set `reduc_llm` to `1`
+    *   If **no** products on the page show signs of a discount, set `reduc_llm` to `0`.
+
+6.  **Product Count per Page (`prod_pp_llm`):**
+    *   Count the total number of distinct, individual products offered for sale on the entire page. A multi-pack (e.g., a six-pack of yogurt) counts as one product.
+    *   Set `prod_pp_llm` to this integer count.
+    *   If it is impossible to determine a clear number or there are no products advertised, set `prod_pp_llm` to `99`.
+
+7.  **Alcohol Product Count (`prod_pp_alc_llm`):**
+    *   If `alc_llm` is `0`, set `prod_pp_alc_llm` to `0`.
+    *   If `alc_llm` is `1` or `2`, count only the number of distinct alcoholic products on the page (You can base your decision on the number of prizes).
+    *   Set `prod_pp_alc_llm` to this integer count.
+    *   If it is impossible to determine a clear number (but alcohol is present), set `prod_pp_alc_llm` to `99`.
+
+Now, analyze the provided image and return only the JSON object.

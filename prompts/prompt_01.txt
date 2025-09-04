@@ -1,0 +1,57 @@
+You are an expert data analyst specializing in the analysis of retail advertising. Your task is to meticulously examine the provided image of a supermarket brochure page and classify its content based on a strict codebook.
+
+You MUST provide your response as a single, compact JSON object. Do not add any explanations, comments, or markdown formatting around the JSON. The JSON object must have the following keys: "alc", "product", "child", "reduc", "text_recogn", "prod_pp", "prod_pp_alc".
+
+Follow these steps precisely:
+
+1.  **Overall Image Quality Check:**
+    *   If the image is completely unreadable, corrupt, blank, or clearly not a page from a retail brochure, you MUST return a JSON object where every value is the integer `98`.
+
+2.  **Alcohol Presence (`alc`):**
+    *   First, determine if any alcoholic beverages (beer, wine, spirits, cider, pre-mixed drinks, etc.) are explicitly shown for sale.
+    *   If **no** alcoholic beverages are shown, set `alc` to `0`.
+    *   If **yes**, alcoholic beverages are shown, check for any legal warnings or health disclaimers related to alcohol consumption (e.g., "l'abus d'alcool est dangereux pour la santé", "Drink Responsibly", Altersbeschränkungen).
+    *   If health warning related to alcohol are present, set `alc` to `2`.
+    *   If no warnings are present, set `alc` to `1`.
+
+3.  **Product Type (`product`):**
+    *   If `alc` is `0`, set `product` to `0`.
+    *   If `alc` is `1` or `2`, identify the category of alcoholic beverages shown:
+        *   If only beer or beer-mixes are shown, set `product` to `1`.
+        *   If only wine or sparkling wine is shown, set `product` to `2`.
+        *   If only spirits (like vodka, whisky, gin, rum) or spirit-based pre-mixed drinks are shown, set `product` to `3`.
+        *   If multiple categories (e.g., beer and wine) or other types (e.g., cider, specialty liqueurs) are shown, set `product` to `4`.
+
+4.  **Targeting Children/Youth (`child`):**
+    *   Analyze the design and presentation of the alcoholic products. Look for elements clearly designed to appeal to minors, such as cartoon characters, overly bright and playful packaging, or direct association with candy/sweets.
+    *   If `alc` is `0`, set `child` to `0`.
+    *   If there are clear elements targeting children, set `child` to `1`.
+    *   If there are no such elements, set `child` to `0`.
+    *   If the appeal is ambiguous or you cannot be certain, set `child` to `8`.
+
+5.  **Discounting (`reduc`):**
+    *   Examine all products on the page. Look for any visual cues of a price reduction, such as crossed-out original prices, percentage-off signs (e.g., "-25%"), "Sale", "Rabatt", "Promotion", "Offre Spéciale" etc.
+    *   If **any** prodresponse = ollama.chat(
+    model="gemma3:4b",
+    messages=[
+        {"role": "user", "content": PROMPT_TEXT, "images": ["dataset_images/subset_1/qualitaet_halb/dataset_images/subset_1/qualitaet_halb/aldi_pl_1308_page_11.jpg"]}
+    ],
+    options=dict(seed=42)
+)
+
+print(response["message"]['content'])
+uct on the page is discounted, set `reduc` to `1`.
+    *   If **no** products on the page show signs of a discount, set `reduc` to `0`.
+
+6.  **Product Count per Page (`prod_pp`):**
+    *   Count the total number of distinct, individual products offered for sale on the entire page. A multi-pack (e.g., a six-pack of beer) counts as one product.
+    *   Set `prod_pp` to this integer count.
+    *   If it is impossible to determine a clear number, set `prod_pp` to `99`.
+
+7.  **Alcohol Product Count (`prod_pp_alc`):**
+    *   If `alc` is `0`, set `prod_pp_alc` to `0`.
+    *   If `alc` is `1` or `2`, count only the number of distinct alcoholic products on the page.
+    *   Set `prod_pp_alc` to this integer count.
+    *   If it is impossible to determine a clear number (but alcohol is present), set `prod_pp_alc` to `99`.
+
+Now, analyze the provided image and return only the JSON object.
