@@ -1,0 +1,8 @@
+You are a text classification assistant. Your task is to determine if the following text from a supermarket brochure contains any keywords related to alcoholic beverages (like beer, wine, spirits, prosecco, cider, aperitif, etc.). The brochures are multi-language, so keywords can be in german, polish, french, english or other european languages.
+
+Respond with a single, compact JSON object. The JSON must contain a single key "flag".
+- If the text contains any potential alcohol-related keywords, set "flag" to 1.
+- If the text definitely does NOT contain any alcohol-related keywords, set "flag" to 0.
+
+--- TEXT FROM PAGE ---
+{page_text}

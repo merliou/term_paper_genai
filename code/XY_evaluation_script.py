@@ -3,10 +3,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 
 # --- KONFIGURATION ---
 # Passen Sie diese Namen an, falls Ihre Spalten oder die Datei anders heißen
-ANNOTATED_CSV_FILE = 'annotations/subset_1_anno_v07.csv'
+ANNOTATED_CSV_FILE = 'annotations/subset_2_text_classified_qwen3:4b_3gb.csv'
 HUMAN_COLUMN = 'alc_hum'             # Ihre manuelle Kodierung
 TEXT_FLAG_COLUMN = 'alc_keyword_flag'  # Ergebnis von Schritt 2
-FINAL_ALC_COLUMN = 'alc'               # Ergebnis von Schritt 3
+FINAL_ALC_COLUMN = 'alc_keyword_flag'               # Ergebnis von Schritt 3
 
 def evaluate_text_filter(df):
     """Vergleicht die Vorauswahl (Text-Filter) mit der manuellen Kodierung."""
