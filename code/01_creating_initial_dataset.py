@@ -61,10 +61,10 @@ def create_dataset_from_specific_structure(root_folder, output_csv_path):
     print(f"Initiales Dataset erfolgreich erstellt und unter {output_csv_path} gespeichert.")
     return df
 
-ROOT_BROCHURES_FOLDER = 'term_paper_genai/data_term_paper/prospekte'
+ROOT_BROCHURES_FOLDER = 'data_term_paper/prospekte_v02'
 
 # 2. Geben Sie den Namen für die Ausgabedatei an
-OUTPUT_METADATA_CSV = 'initial_dataset.csv'
+OUTPUT_METADATA_CSV = 'initial_dataset_new.csv'
 
 # 3. Rufen Sie die Funktion mit den exakt gleichen Variablennamen auf
 initial_df = create_dataset_from_specific_structure(ROOT_BROCHURES_FOLDER, OUTPUT_METADATA_CSV)

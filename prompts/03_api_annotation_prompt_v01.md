@@ -32,15 +32,15 @@ Follow these steps precisely to determine the values for the final JSON object.
 *   If you cannot clearly determine whether a discount is present or not (e.g., due to image quality), the value is `99`.
 
 **6. Products Targeting Children/Adolescents (`child`):**
-*   Examine the products to see if any are specifically aimed at children or adolescents. This includes items like sweets, sugary cereals, toys, specific snack products with cartoon characters, etc.
+*   Examine the products to see if any are specifically aimed at children or adolescents, or could attract their attention. This includes items like sweets, icecream, sugary cereals, juices, lemonade, toys, ice tea, specific snack products with cartoon characters, etc.
 *   If NO such products are visible, the value is `0`.
 *   If YES, one or more such products are visible, the value is `1`.
 *   If it is unclear whether a product targets this group, the value is `99`.
 
 **7. Total Products per Page (`prod_pp`):**
-*   Count every distinct product advertised on the page. A "product" is a single item for sale (e.g., a bottle of cola, a specific type of cheese, a bag of apples). Different flavors or variations of the same item count as distinct products if advertised separately.
+*   Count every distinct product advertised on the page. You can use the number of price quotations as a guide. A "product" is one or several items for sale (e.g., two bottles of Cola (one of them Cola Zero and one of them Cola Light), a specific type of cheese, a bag of apples) while connected to a price. Different flavors or variations of the same item count only as distinct products if priced separately.
 *   The value is the final integer count.
-*   If you cannot count the products for any reason, the value is `99`.
+*   If you cannot count the products for any reason, or there are no distinct prices on the page the value is `99`.
 
 **8. Alcoholic Products per Page (`prod_alc`):**
 *   Count every distinct alcoholic product advertised on the page, following the same counting rule as for `prod_pp`.

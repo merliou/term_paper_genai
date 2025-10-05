@@ -27,7 +27,7 @@ new_columns = [
 ]
 
 # Der Ordner, in dem deine CSV-Dateien liegen
-folder_path = 'subsets' # Pass den Ordnernamen an, falls nötig
+folder_path = 'subsets_for_annotation' # Pass den Ordnernamen an, falls nötig
 
 # Gehe durch jede Datei im angegebenen Ordner
 for filename in os.listdir(folder_path):

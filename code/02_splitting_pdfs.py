@@ -63,7 +63,7 @@ def split_pdfs_into_pages(metadata_csv_path, output_folder):
     return split_df
     
 # --- Anwendung ---
-OUTPUT_METADATA_CSV = 'initial_dataset.csv'
+OUTPUT_METADATA_CSV = 'initial_dataset_new.csv'
 SPLIT_PAGES_FOLDER = 'split_pages'
 split_df = split_pdfs_into_pages(OUTPUT_METADATA_CSV, SPLIT_PAGES_FOLDER)
 print(split_df.head())

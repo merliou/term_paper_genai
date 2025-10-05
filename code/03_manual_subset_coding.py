@@ -4,7 +4,7 @@ import os
 import time
 
 # Pfad zu deiner CSV-Datei
-csv_file = 'subsets/subset_1.csv'
+csv_file = 'subsets_for_annotation/subset_1.csv'
 
 # Lade das CSV in einen Pandas DataFrame
 df = pd.read_csv(csv_file)
